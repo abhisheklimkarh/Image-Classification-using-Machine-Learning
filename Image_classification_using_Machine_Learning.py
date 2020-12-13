@@ -100,7 +100,7 @@ model.add(Dense(250, activation='relu'))
 
 # Add a layer 10 neurons
 # Softmax activation function  The input values can be positive, negative, zero, or greater than one,
-# ddbut the softmax transforms them into values between 0 and 1, so that they can be interpreted as probabilities.
+# but the softmax transforms them into values between 0 and 1, so that they can be interpreted as probabilities.
 model.add(Dense(10, activation='softmax'))
 
 # Compile the model
