@@ -43,7 +43,8 @@ classification = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog'
 # Print the classification
 print('The image classification is : ', classification[y_train[index][0]])
 
-# Convert the label into the set of 10 numbers to input to the neural network
+# Convert the label into the set of 10 numbers to input to the neural network.
+# It sets the category of the image it belongs to as 1 and assigns rest as 0.
 y_train_one_hot = to_categorical(y_train)
 y_test_one_hot = to_categorical(y_test)
 
@@ -65,9 +66,12 @@ x_train[index]
 model = Sequential()
 
 # Add the first convolutional layer
+# conv2D is used to create a convolutional kernal from input to generate tensors of output
+# Here we use relu activation function so that it does not activate all the neurons at the same time
 model.add(Conv2D(32, (5,5), activation='relu', input_shape = (32,32,3)))
 
 # Add a pooling layer
+# Mac Pooling is used to reduce the dimensionality of the input
 model.add(MaxPooling2D(pool_size = (2,2)))
 
 # Add  another convolutional layer
@@ -76,7 +80,7 @@ model.add(Conv2D(32, (5,5), activation='relu'))
 # Add a pooling layer
 model.add(MaxPooling2D(pool_size = (2,2)))
 
-# Add a flattening layer
+# Add a flattening layer to covert the data into 1-dimensional array for input to the next layer
 model.add(Flatten())
 
 # Add a layer 1000 neurons
@@ -88,14 +92,15 @@ model.add(Dropout(0.5))
 # Add a layer 500 neurons
 model.add(Dense(500, activation='relu'))
 
-# Add a dropout layer
+# Add a dropout layer to prevent overfitting
 model.add(Dropout(0.5))
 
 # Add a layer 250 neurons
 model.add(Dense(250, activation='relu'))
 
-
 # Add a layer 10 neurons
+# Softmax activation function  The input values can be positive, negative, zero, or greater than one,
+# ddbut the softmax transforms them into values between 0 and 1, so that they can be interpreted as probabilities.
 model.add(Dense(10, activation='softmax'))
 
 # Compile the model
